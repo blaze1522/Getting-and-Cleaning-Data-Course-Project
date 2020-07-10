@@ -25,12 +25,14 @@ setnames(data2, c(1:n), c("subject", features$V2, "activity"))
 data3 <- data2[, c(1, measurements, n)] 
 
 # Step3: Use descriptive names to name the activities
+# Read the actvity file and then match the activity column with that file.
 
 activities <- fread(list.files()[2], header=F, stringsAsFactor=F)
 data3$activity <- activities$V2[match(data3$activity, activities$V1)]
 # head(data3)
 
-# Step5: Write final tidy table
+# Step5: Write final tidy table. 
+# Here we just group the relevant rows and the apply mean on them. 
 
 data4 <- aggregate(. ~ subject+activity, data=data3, FUN=mean)
 setwd("/home/goirik/Documents/Coursera/R Programming/3 Cleaning up Data/Getting-and-Cleaning-Data-Course-Project")
